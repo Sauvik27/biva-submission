@@ -1,0 +1,36 @@
+<mat-card class="grid-wrapper m-3">
+  <mat-card-content class="h-100">
+    <app-biva-grid class="h-100" (toolbarClick)="toolbarClickHandler($event)" (gridRendered)="gridRender()" (selectionChange)="selectionChange($event)" [gridConfig]="gridConfig"></app-biva-grid>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #formModal>
+  <div class="d-flex justify-content-between align-items-center p-3 ">
+    <h2 class="mb-0">{{modalType}} task</h2>
+    <div>
+      <button mat-mini-fab color="primary" mat-dialog-close [disabled]="!taskForm.valid || duplicateName" (click)="onSubmit()" class="me-2">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-mini-fab mat-dialog-close color="basic">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-dialog-content>
+    <form [formGroup]="taskForm" class="mt-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Task Name</mat-label>
+        <input matInput placeholder="Enter name" (keyup)="getErrorMessage()" formControlName="name" [readonly]="modalType === 'Edit'">
+        <mat-hint *ngIf="duplicateName">Task already present</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Date</mat-label>
+        <input matInput type="datetime-local" style="height: 20px;" formControlName="date" />
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+</ng-template>

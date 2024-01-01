@@ -1,0 +1,6 @@
+.grid-wrapper {
+  height: calc(100vh - 90px);
+}
+.mdc-text-field__input::-webkit-calendar-picker-indicator {
+  display: block !important;
+}
